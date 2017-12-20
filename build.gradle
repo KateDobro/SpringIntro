@@ -3,10 +3,11 @@ version '1.0.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
 
 
 // todo: before start set the @mainClassName
-// mainClassName = ''
+ mainClassName = 'chapter3.autowire.Target'
 
 sourceCompatibility = 1.8
 
@@ -15,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.springframework:spring-context:4.3.12.RELEASE'
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
