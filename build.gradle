@@ -1,0 +1,20 @@
+group 'dk.spring'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+
+// todo: before start set the @mainClassName
+// mainClassName = ''
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
