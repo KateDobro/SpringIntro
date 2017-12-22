@@ -1,4 +1,4 @@
-package autowire;
+package chapter3.autowire;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -34,21 +34,21 @@ public class Target {
         System.out.println("Property bar set");
     }
 
-    // TODO: before start change value of @mainClassName in build.gradle to "autowire.Target"
-    public static void main(String[] args){
+    // TODO: before start change value of @mainClassName in build.gradle to "chapter3.autowire.Target"
+    public static void main(String[] args) {
         ApplicationContext ctx =
                 new FileSystemXmlApplicationContext(
-                        "src/main/java/autowire/autowireContext.xml");
+                        "src/main/java/chapter3/autowire/autowireContext.xml");
 
         Target t = null;
         System.out.println("Using byName:\n");
         t = (Target) ctx.getBean("targetByName");
 
         System.out.println("\nUsing byType:\n");
-        t = (Target)ctx.getBean("targetByType");
+        t = (Target) ctx.getBean("targetByType");
 
         System.out.println("\nUsing constructor:\n");
-        t = (Target)ctx.getBean("targetConstructor");
+        t = (Target) ctx.getBean("targetConstructor");
     }
 
 }

@@ -6,8 +6,8 @@ apply plugin: 'idea'
 apply plugin: 'application'
 
 
-// todo: before start set the @mainClassName
- mainClassName = 'chapter3.autowire.Target'
+// todo: before run the app, set the @mainClassName
+mainClassName = 'chapter3.autowire.Target'
 
 sourceCompatibility = 1.8
 
