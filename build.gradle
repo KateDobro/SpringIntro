@@ -7,7 +7,7 @@ apply plugin: 'application'
 
 
 // todo: before run the app, set the @mainClassName
-mainClassName = 'chapter3.autowire.Target'
+mainClassName = 'chapter4.beanLifecycle.beanInitBind.SimpleBean'
 
 sourceCompatibility = 1.8
 
