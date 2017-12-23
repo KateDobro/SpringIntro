@@ -2,6 +2,7 @@ package chapter3.autowire;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class Target {
     private Foo foo;
@@ -36,9 +37,10 @@ public class Target {
 
     // TODO: before start change value of @mainClassName in build.gradle to "chapter3.autowire.Target"
     public static void main(String[] args) {
-        ApplicationContext ctx =
-                new FileSystemXmlApplicationContext(
-                        "src/main/java/chapter3/autowire/autowireContext.xml");
+        GenericXmlApplicationContext ctx =
+                new GenericXmlApplicationContext();
+        ctx.load("classpath:META-INF/chapter3/autowire/autowire_ctx.xml");
+        ctx.refresh();
 
         Target t = null;
         System.out.println("Using byName:\n");

@@ -2,9 +2,11 @@ package chapter4.beanLifecycle.beanInitBind;
 
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
-public class SimpleBean {
+import javax.annotation.PostConstruct;
+
+public class SimpleBeanWithJSR250 {
     private static final String DEFAULT_NAМE = "Luke Skywalker";
 
     private String name;
@@ -17,6 +19,7 @@ public class SimpleBean {
         this.age = age;
     }
 
+    @PostConstruct
     public void init(){
         System.out.println("Init bean");
 
@@ -28,7 +31,7 @@ public class SimpleBean {
         if(age == Integer.MIN_VALUE){
             throw new IllegalArgumentException(
                     "You must set the age property of any beans of type"
-                            + SimpleBean.class); // Должно быть установлено свойство age любого бина типа
+                            + SimpleBeanWithJSR250.class); // Должно быть установлено свойство age любого бина типа
         }
     }
 
@@ -40,20 +43,22 @@ public class SimpleBean {
                 '}';
     }
 
-    // TODO: before the app run, change value of @mainClassName in build.gradle to "chapter4.beanLifecycle.beanInitBind.SimpleBean"
+    // TODO: before the app run, change value of @mainClassName in build.gradle
+    // to "chapter4.beanLifecycle.beanInitBind.SimpleBeanWithJSR250"
     public static void main (String[] args){
-        ApplicationContext ctx =
-                new FileSystemXmlApplicationContext(
-                "src/main/java/chapter4/beanLifecycle/beanInitBind/sb_app_ctx.xml");
+        GenericXmlApplicationContext ctx =
+                new GenericXmlApplicationContext();
+        ctx.load("classpath:META-INF/chapter4/beanLifecycle/beanInitBind/sb_app_ctx.xml"); // todo before start set the right bean-config in app_ctx.xml
+        ctx.refresh();
 
-        SimpleBean sb1 = getBean("sb1",ctx);
-        SimpleBean sb2 = getBean("sb2",ctx);
-        SimpleBean sb3 = getBean("sb3",ctx);
+        SimpleBeanWithJSR250 sb1 = getBean("sb1",ctx);
+        SimpleBeanWithJSR250 sb2 = getBean("sb2",ctx);
+        SimpleBeanWithJSR250 sb3 = getBean("sb3",ctx);
     }
 
-    private static SimpleBean getBean(String beanName, ApplicationContext context){
+    private static SimpleBeanWithJSR250 getBean(String beanName, ApplicationContext context){
         try {
-            SimpleBean bean = (SimpleBean) context.getBean(beanName);
+            SimpleBeanWithJSR250 bean = (SimpleBeanWithJSR250) context.getBean(beanName);
             System.out.println(bean);
             return bean;
         } catch (BeanCreationException ex){

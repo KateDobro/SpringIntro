@@ -2,7 +2,7 @@ package chapter4.beanLifecycle.beanInitBind;
 
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class SimpleBean {
     private static final String DEFAULT_NAМE = "Luke Skywalker";
@@ -42,9 +42,10 @@ public class SimpleBean {
 
     // TODO: before the app run, change value of @mainClassName in build.gradle to "chapter4.beanLifecycle.beanInitBind.SimpleBean"
     public static void main (String[] args){
-        ApplicationContext ctx =
-                new FileSystemXmlApplicationContext(
-                "src/main/java/chapter4/beanLifecycle/beanInitBind/sb_app_ctx.xml");
+        GenericXmlApplicationContext ctx =
+                new GenericXmlApplicationContext();
+        ctx.load("classpath:META-INF/chapter4/beanLifecycle/beanInitBind/sb_app_ctx.xml"); // todo before start set the right bean-config in app_ctx.xml
+        ctx.refresh();
 
         SimpleBean sb1 = getBean("sb1",ctx);
         SimpleBean sb2 = getBean("sb2",ctx);

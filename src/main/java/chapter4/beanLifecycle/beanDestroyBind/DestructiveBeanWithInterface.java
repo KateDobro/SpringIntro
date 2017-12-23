@@ -1,13 +1,12 @@
 package chapter4.beanLifecycle.beanDestroyBind;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.io.File;
 
-public class DestructiveBean implements InitializingBean {
+public class DestructiveBeanWithInterface implements InitializingBean, DisposableBean {
 
     private File file;
     private String filePath;
@@ -19,7 +18,7 @@ public class DestructiveBean implements InitializingBean {
         if (filePath == null) {
             throw new IllegalArgumentException(
                     "You must specify the filePath property of " // Свойство filePath должно быть установлено в классе
-                            + DestructiveBean.class);
+                            + DestructiveBeanWithInterface.class);
         }
 
         this.file = new File(filePath);
@@ -28,12 +27,13 @@ public class DestructiveBean implements InitializingBean {
         System.out.println("File exists: " + file.exists()); // файл существует
     }
 
+    @Override
     public void destroy() {
         System.out.println("Destroying Bean"); // уничтожение бина
         if (!file.delete()) {
             System.err.println("ERROR: failed to delete file.");// ОШБК: не удается удалить файл
-            System.out.println("File exists: " + file.exists());// файл существует
         }
+        System.out.println("File exists: " + file.exists());// файл существует
     }
 
     public void setFilePath(String filePath) {
@@ -41,14 +41,14 @@ public class DestructiveBean implements InitializingBean {
     }
 
     // TODO: before the app run, change value of @mainClassName in build.gradle
-    // to "chapter4.beanLifecycle.beanDestroyBind.DestructiveBean"
+    // to "chapter4.beanLifecycle.beanDestroyBind.DestructiveBeanWithInterface"
     public static void main (String[] args){
         GenericXmlApplicationContext ctx =
                 new GenericXmlApplicationContext();
         ctx.load("classpath:META-INF/chapter4/beanLifecycle/beanDestroyBind/db_app_ctx.xml"); // todo before start set the right bean-config in app_ctx.xml
         ctx.refresh();
 
-        DestructiveBean destructiveBean = (DestructiveBean)ctx.getBean("destructiveBean");
+        DestructiveBeanWithInterface destructiveBean = (DestructiveBeanWithInterface)ctx.getBean("destructiveBean");
 
         System.out. println("Calling destroy()"); // вызов метода destroy()
         ctx.destroy();

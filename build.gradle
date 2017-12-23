@@ -5,9 +5,8 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-
 // todo: before run the app, set the @mainClassName
-mainClassName = 'chapter4.beanLifecycle.beanInitBind.SimpleBean'
+mainClassName = 'chapter4.beanLifecycle.beanDestroyBind.DestructiveBeanWithJSR250'
 
 sourceCompatibility = 1.8
 
