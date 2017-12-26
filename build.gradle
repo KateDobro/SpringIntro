@@ -6,7 +6,7 @@ apply plugin: 'idea'
 apply plugin: 'application'
 
 // todo: before run the app, set the @mainClassName
-mainClassName = 'chapter4.beanLifecycle.beanDestroyBind.DestructiveBeanWithJSR250'
+mainClassName = 'chapter4.beanKnowAboutSpring.ShutdownHookBean'
 
 sourceCompatibility = 1.8
 
